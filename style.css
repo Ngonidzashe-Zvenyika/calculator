@@ -17,9 +17,23 @@ body {
     box-sizing: border-box;
     width: 300px;
     height: 90px;
+    padding: 5px;
     border: 2px solid black;
     border-radius: 5px;
     background-color: rgb(235, 235, 235);
+}
+
+.upperScreen {
+    height: 20px;
+    font-size: 18px;
+    text-align: right;
+}
+
+.lowerScreen {
+    height: 50px;
+    margin-top: 5px;
+    font-size: 48px;
+    text-align: right;
 }
 
 .buttons {
@@ -53,10 +67,7 @@ button:active {
     background-color: rgb(143, 164, 182);
 }
 
-.divide,
-.multiply,
-.subtract,
-.add {
+.operator {
     background-color: rgb(248, 209, 137);
 }
 
