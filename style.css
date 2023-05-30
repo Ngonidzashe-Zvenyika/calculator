@@ -1,6 +1,7 @@
 body {
     display: flex;
     justify-content: center;
+    font-family: 'Arial', sans-serif;
 }
 
 .calculator {
@@ -16,7 +17,7 @@ body {
 .screen {
     box-sizing: border-box;
     width: 300px;
-    height: 90px;
+    min-height: 90px;
     padding: 5px;
     border: 2px solid black;
     border-radius: 5px;
@@ -25,12 +26,15 @@ body {
 
 .upperScreen {
     height: 20px;
+    padding: 2px;
     font-size: 18px;
     text-align: right;
 }
 
 .lowerScreen {
-    height: 50px;
+    min-height: 50px;
+    word-wrap: break-word;
+    padding: 2px;
     margin-top: 5px;
     font-size: 48px;
     text-align: right;
