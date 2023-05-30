@@ -8,51 +8,68 @@ const buttons = document.querySelectorAll("button");
 const upperScreen = document.querySelector(".upperScreen");
 const lowerScreen = document.querySelector(".lowerScreen");
 
-// This function detects which button has been pressed and effects changes to suit the button's purpose;
-function getButtonChoice() {
+// This function adds event listeners the check for key presses/lifts, as well as mouse clicks;
+function addEventListeners() {
+    window.addEventListener("keydown", (event) => {
+        for (const button of buttons) {
+            window.addEventListener("keyup", () => {
+                button.style.opacity = 0.7;
+            });
+            if (button.classList.contains(`${event.key}`)) {
+                button.style.opacity = 1;
+                useButtonChoice(button);
+            }
+        }
+    });
+
     for (const button of buttons) {
         button.addEventListener("click", () => {
-            switch(true) {
-            case (button.classList.contains("number")):
-                appendNumbers(button);
-                break;
-            case (button.classList.contains("operator") && (firstNumber !== "") && (secondNumber === "")):
-                appendOperator(button);
-                break;
-            case (button.classList.contains("operator") && (firstNumber !== "") && (secondNumber !== "")):
-                chooseOperation();
-                appendOperator(button);
-                break;
-            case (button.classList.contains("equals") && (firstNumber !== "") && (secondNumber !== "")):
-                chooseOperation();
-                operator = null;
-                break;
-            case (button.classList.contains("clear")):
-                clear();
-                break;
-            case (button.classList.contains("backspace")):
-                deleteNumber();
-            }
+            useButtonChoice(button);
         });
+    }
+}
+
+// This function detects which button has been pressed and effects changes to suit the button's purpose;
+function useButtonChoice(button) {
+    switch(true) {
+        case (button.classList.contains("number")):
+            appendNumbers(button);
+            break;
+        case (button.classList.contains("operator") && (firstNumber !== "") && (secondNumber === "")):
+            appendOperator(button);
+            break;
+        case (button.classList.contains("operator") && (firstNumber !== "") && (secondNumber !== "")):
+            chooseOperation();
+            appendOperator(button);
+            break;
+        case (button.classList.contains("=") && (firstNumber !== "") && (secondNumber !== "")):
+            chooseOperation();
+            operator = null;
+            break;
+        case (button.classList.contains("Escape")):
+            clear();
+            break;
+        case (button.classList.contains("Backspace")):
+            deleteNumber();
     }
 }
 
 // This function controls the input to the firstNumber and secondNumbe variables;
 function appendNumbers(button) {
     if (operator === null && answer === null && firstNumber.length < 10) {
-        if (button.classList.contains("decimalPoint") && firstDecimalPoint === false) {
+        if (button.classList.contains(".") && firstDecimalPoint === false) {
             firstNumber += ".";
             firstDecimalPoint = true;
-        } else if (button.classList.contains("decimalPoint") === false) {
+        } else if (button.classList.contains(".") === false) {
             firstNumber += button.innerText;
         }
         upperScreen.innerText = "";
         lowerScreen.innerText = firstNumber;
     } else if (operator !== null && secondNumber.length < 10) {
-        if (button.classList.contains("decimalPoint") && secondDecimalPoint === false) {
+        if (button.classList.contains(".") && secondDecimalPoint === false) {
             secondNumber += ".";
             secondDecimalPoint = true;
-        }   else if (button.classList.contains("decimalPoint") === false) {
+        }   else if (button.classList.contains(".") === false) {
             secondNumber += button.innerText;
         }
             upperScreen.innerText = `${firstNumber} ${operator}`;
@@ -62,13 +79,13 @@ function appendNumbers(button) {
 
 // This function controls the input to the operator variable;
 function appendOperator(button) {
-    if (button.classList.contains("add")) {
+    if (button.classList.contains("+")) {
         operator = "+";
-    } else if (button.classList.contains("subtract")) {
+    } else if (button.classList.contains("-")) {
         operator = "-";
-    } else if (button.classList.contains("multiply")) {
+    } else if (button.classList.contains("*")) {
         operator = "*";
-    } else if (button.classList.contains("divide")) {
+    } else if (button.classList.contains("/")) {
         operator = "/";
     }
     upperScreen.innerText = `${firstNumber} ${operator}`;
@@ -139,4 +156,5 @@ function clear() {
 }
 
 // Main program;
-getButtonChoice();
+
+addEventListeners();
