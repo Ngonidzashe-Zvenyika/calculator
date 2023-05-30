@@ -54,7 +54,7 @@ function useButtonChoice(button) {
     }
 }
 
-// This function controls the input to the firstNumber and secondNumbe variables;
+// This function controls the input to the firstNumber and secondNumber variables;
 function appendNumbers(button) {
     if (operator === null && answer === null && firstNumber.length < 10) {
         if (button.classList.contains(".") && firstDecimalPoint === false) {
@@ -72,7 +72,7 @@ function appendNumbers(button) {
         }   else if (button.classList.contains(".") === false) {
             secondNumber += button.innerText;
         }
-            upperScreen.innerText = `${firstNumber} ${operator}`;
+            upperScreen.innerHTML = `${firstNumber} ${operator}`;
             lowerScreen.innerText = secondNumber;
     }
 }
@@ -80,15 +80,15 @@ function appendNumbers(button) {
 // This function controls the input to the operator variable;
 function appendOperator(button) {
     if (button.classList.contains("+")) {
-        operator = "+";
+        operator = "&#43;";
     } else if (button.classList.contains("-")) {
-        operator = "-";
+        operator = "&#8722;";
     } else if (button.classList.contains("*")) {
-        operator = "*";
+        operator = "&#215;";
     } else if (button.classList.contains("/")) {
-        operator = "/";
+        operator = "&#247;";
     }
-    upperScreen.innerText = `${firstNumber} ${operator}`;
+    upperScreen.innerHTML = `${firstNumber} ${operator}`;
 }
 
 // This function conducts the desired operation with the three given variables that are decided when the user presses the buttons;
@@ -96,16 +96,16 @@ function chooseOperation () {
     firstNumber = Number(firstNumber);
     secondNumber = Number(secondNumber);
     switch (true) {
-    case (operator === "+"):
+    case (operator === "&#43;"):
         answer = firstNumber + secondNumber;
         break;
-    case (operator === "-"):
+    case (operator === "&#8722;"):
         answer = firstNumber - secondNumber;
         break;
-    case (operator === "*"):
+    case (operator === "&#215;"):
         answer = firstNumber * secondNumber;
         break;
-    case (operator === "/"):
+    case (operator === "&#247;"):
         let flag = checkForZero(); // Won't allow division by zero;
         if (flag === true) return;
         answer = firstNumber / secondNumber;
@@ -115,7 +115,7 @@ function chooseOperation () {
     if (answer.toString().length > 10) answer = answer.toPrecision(11); // Won't allow more than eleven figures on the calculator display and will remove trailing zeros;
     firstDecimalPoint = false;
     secondDecimalPoint = false;
-    upperScreen.innerText = `${firstNumber} ${operator} ${secondNumber}`;
+    upperScreen.innerHTML = `${firstNumber} ${operator} ${secondNumber}`;
     lowerScreen.innerText = answer;
     firstNumber = answer;
     secondNumber = "";
@@ -155,6 +155,6 @@ function clear() {
     lowerScreen.innerText = "";
 }
 
-// Main program;
 
+// Main program;
 addEventListeners();
