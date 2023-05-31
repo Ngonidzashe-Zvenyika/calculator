@@ -1,3 +1,4 @@
+// These are the initialized global variables;
 let firstNumber = "";
 let secondNumber = "";
 let operator = null;
@@ -12,12 +13,17 @@ const lowerScreen = document.querySelector(".lowerScreen");
 function addEventListeners() {
     window.addEventListener("keydown", (event) => {
         for (const button of buttons) {
-            window.addEventListener("keyup", () => {
-                button.style.opacity = 0.7;
-            });
             if (button.classList.contains(`${event.key}`)) {
-                button.style.opacity = 1;
+                button.classList.add("pressed");
                 useButtonChoice(button);
+            }
+        }
+    });
+
+    window.addEventListener("keyup", (event) => {
+        for (const button of buttons) {
+            if (button.classList.contains(`${event.key}`)) {
+                button.classList.remove("pressed");
             }
         }
     });
@@ -72,8 +78,8 @@ function appendNumbers(button) {
         }   else if (button.classList.contains(".") === false) {
             secondNumber += button.innerText;
         }
-            upperScreen.innerHTML = `${firstNumber} ${operator}`;
-            lowerScreen.innerText = secondNumber;
+        upperScreen.innerHTML = `${firstNumber} ${operator}`;
+        lowerScreen.innerText = secondNumber;
     }
 }
 
@@ -91,7 +97,7 @@ function appendOperator(button) {
     upperScreen.innerHTML = `${firstNumber} ${operator}`;
 }
 
-// This function conducts the desired operation with the three given variables that are decided when the user presses the buttons;
+// This function conducts the desired operation with the three variables that are decided when the user presses the buttons;
 function chooseOperation () {
     firstNumber = Number(firstNumber);
     secondNumber = Number(secondNumber);
